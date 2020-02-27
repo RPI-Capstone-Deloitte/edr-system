@@ -1,0 +1,3 @@
+FROM library/mongo
+
+

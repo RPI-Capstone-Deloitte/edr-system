@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    mongo:
+        container_name: edr_mongo
+        build: ./mongodb
+        ports:
+           - 27017:27017
+        environment:
+                - MONGO_INITDB_ROOT_USERNAME=test
+                - MONGO_INITDB_ROOT_PASSWORD=test   
+    core:
+        container_name: edr_core
+        build: ./core
+        ports:
+           - 5000:5000
+        environment:
+                - DB_HOST=mongo
+                - DB_PORT=27017
+                - DB_USER=test
+                - DB_PASSWORD=test
+                - DB_NAME=edr
