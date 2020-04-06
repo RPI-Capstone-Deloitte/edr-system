@@ -31,7 +31,7 @@ class ES(object):
 
         helpers.bulk(self.es, records)
 
-    def query(self, _index, doctype, qstring):
+    def load(self, _index, doctype, qstring):
         records = []
         try:
             page = self.es.search(index=_index, doc_type=doctype, scroll='2m', size=1000, q=qstring, timeout='10m')
@@ -52,3 +52,19 @@ class ES(object):
         except Exception as e:
             log_error('Elasticsearch query failed. {}'.format(e))
             return pandas.DataFrame([])
+
+    def query(self, _index, doctype, args, page_size, page_index):
+        records = []
+        try:
+            page = self.es.search(index=_index, doc_type=doctype, body={
+                "query" : args,
+                "from" : page_index * page_size,
+                "size" : page_size
+            })
+            docs = page['hits']['hits']
+            records += [x['_source'] for x in docs]
+            return records
+
+        except Exception as e:
+            log_error('Elasticsearch query failed. {}'.format(e))
+            return records

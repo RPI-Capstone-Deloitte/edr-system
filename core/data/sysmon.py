@@ -1,20 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import pandas
-import hashlib
+
 from utils.common import *
 
 from entity.behavior import *
 from utils.log import *
-
-
-def machine_id(_str):
-    return hashlib.md5(str(_str).encode('utf-8')).hexdigest()
-
-
-def pickup_md5(_str):
-    res = _str.split('=')
-    return res[0] if len(res) == 1 else res[1]
 
 
 class SysmonData(object):
@@ -258,7 +249,7 @@ class SysmonData(object):
     def from_winlogbeat(self, _es, _index, startdate, enddate):
         ts_tr = format_daterange((startdate, enddate))
         qstr = '@timestamp:[{} TO {}]'.format(ts_tr[0], ts_tr[1])
-        raw_data = _es.query(_index, '_doc', qstr)
+        raw_data = _es.load(_index, '_doc', qstr)
         behavior_list = []
 
         for _, e in raw_data.iterrows():
@@ -268,7 +259,7 @@ class SysmonData(object):
             if func:
                 try:
                     props = [en.split(': ')[1] for en in e['message'].split('\n')[1:]]
-                    mid = machine_id(e['winlog']['computer_name'])
+                    mid = encode_md5(e['winlog']['computer_name'])
                     behav = func(eid, mid, props)
                     behavior_list.append(behav)
                 except Exception as e:

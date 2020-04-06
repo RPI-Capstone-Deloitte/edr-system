@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 from flask import Flask
+from flask import request
 from config import *
-from db.mongodb import Mongo
 from db.elastic import ES
 from data.sysmon import SysmonData
+import controller.behavior as behavior_controller
 
 app = Flask(__name__)
 
@@ -13,22 +14,17 @@ def hello():
     return "Hello, Group 2!"
 
 
-@app.route('/add', methods=['GET'])
-def add():
-    # Test the connection of database
-    user = dict()
-    user['name'] = "Bob"
-    user['age'] = 20
-    Mongo.insert("User", user)
-    return "success"
-
-
-def updateData(startdate, enddate):
-    es = ES()
+def update_data(startdate, enddate):
     sysmon = SysmonData()
     res = sysmon.from_winlogbeat(es, WINLOGBEAT_INDEX, startdate, enddate)
     es.insert_behaviors('raw', res)
 
 
+@app.route("/api/behavior", methods=['GET'])
+def get_behavior():
+    return behavior_controller.get_behavior(es, request.json)
+
+
 if __name__ == '__main__':
+    es = ES()
     app.run(debug=APP_DEBUG_MODE, host=APP_HOST)
