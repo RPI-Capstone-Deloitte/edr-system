@@ -39,3 +39,30 @@ def encode_md5(_str):
 def pickup_md5(_str):
     res = _str.split('=')
     return res[0] if len(res) == 1 else res[1]
+
+
+# logical operates
+def op_or(l):
+    if len(l) == 0:
+        return False
+
+    bresult = False
+    for e in l:
+        bresult |= e
+    return bresult
+
+
+def op_and(l):
+    if len(l) == 0:
+        return False
+
+    bresult = True
+    for e in l:
+        bresult &= e
+    return bresult
+
+
+def op_not(l):
+    if len(l) != 1:
+        return False
+    return not l[0]

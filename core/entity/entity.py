@@ -26,7 +26,7 @@ class BaseEntity(object):
         if value is None or value is numpy.nan:
             self.props[key] = ''
         else:
-            self.props[key] = value.encode('utf-8')
+            self.props[key] = value
 
 
 class FileEntity(BaseEntity):

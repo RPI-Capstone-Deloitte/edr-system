@@ -1,15 +1,37 @@
 # -*- coding: utf-8 -*-
-
-import pandas
-
 from utils.common import *
-
 from entity.behavior import *
-from utils.log import *
 
 
 class SysmonData(object):
-    def process_create_process(self, eid, mid, props):
+
+    @classmethod
+    def process_create_process(cls, eid, mid, props):
+        """
+        Event ID - 1
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="FileVersion" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Description" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Product" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Company" inType="win:UnicodeString" outType="xs:string" />
+        <data name="OriginalFileName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="CommandLine" inType="win:UnicodeString" outType="xs:string" />
+        <data name="CurrentDirectory" inType="win:UnicodeString" outType="xs:string" />
+        <data name="User" inType="win:UnicodeString" outType="xs:string" />
+        <data name="LogonGuid" inType="win:GUID" />
+        <data name="LogonId" inType="win:HexInt64" />
+        <data name="TerminalSessionId" inType="win:UInt32" />
+        <data name="IntegrityLevel" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Hashes" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ParentProcessGuid" inType="win:GUID" />
+        <data name="ParentProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="ParentImage" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ParentCommandLine" inType="win:UnicodeString" outType="xs:string" />
+        """
         return ProcessBehavior({
             'parent': {
                 'image': props[20],
@@ -34,7 +56,19 @@ class SysmonData(object):
             'relation': 'create',
         })
 
-    def process_timestomp(self, eid, mid, props):
+    @classmethod
+    def process_timestomp(cls, eid, mid, props):
+        """
+        Event ID - 2
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetFilename" inType="win:UnicodeString" outType="xs:string" />
+        <data name="CreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="PreviousCreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+        """
         return FileBehavior({
             'process': {
                 'guid': props[2],
@@ -50,7 +84,29 @@ class SysmonData(object):
             'relation': 'timestomp',
         })
 
-    def process_network(self, eid, mid, props):
+    @classmethod
+    def process_network(cls, eid, mid, props):
+        """
+        Event ID - 3
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="User" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Protocol" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Initiated" inType="win:Boolean" />
+        <data name="SourceIsIpv6" inType="win:Boolean" />
+        <data name="SourceIp" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourceHostname" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourcePort" inType="win:UInt16" />
+        <data name="SourcePortName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationIsIpv6" inType="win:Boolean" />
+        <data name="DestinationIp" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationHostname" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationPort" inType="win:UInt16" />
+        <data name="DestinationPortName" inType="win:UnicodeString" outType="xs:string" />
+        """
         return NetworkBehavior({
             'process': {
                 'image': props[4],
@@ -76,7 +132,18 @@ class SysmonData(object):
             'relation': 'socket',
         })
 
-    def process_driver(self, eid, mid, props):
+    @classmethod
+    def process_driver(cls, eid, mid, props):
+        """
+        Event ID - 6
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ImageLoaded" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Hashes" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Signed" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Signature" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SignatureStatus" inType="win:UnicodeString" outType="xs:string" />
+        """
         return FileBehavior({
             'process': {
                 'image': props[2],
@@ -94,7 +161,26 @@ class SysmonData(object):
             'relation': 'load',
         })
 
-    def process_imageload(self, eid, mid, props):
+    @classmethod
+    def process_imageload(cls, eid, mid, props):
+        """
+        Event ID - 7
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ImageLoaded" inType="win:UnicodeString" outType="xs:string" />
+        <data name="FileVersion" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Description" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Product" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Company" inType="win:UnicodeString" outType="xs:string" />
+        <data name="OriginalFileName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Hashes" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Signed" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Signature" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SignatureStatus" inType="win:UnicodeString" outType="xs:string" />
+        """
         return FileBehavior({
             'process': {
                 'image': props[4],
@@ -102,8 +188,8 @@ class SysmonData(object):
             },
             'file': {
                 'path': props[5],
-                'hash': pickup_md5(props[10]),
-                'sig': props[12],
+                'hash': pickup_md5(props[11]),
+                'sig': props[13],
                 'type': 'image',
             },
             'datetime': datetime.strptime(props[1].split('.')[0], '%Y-%m-%d %H:%M:%S').isoformat(),
@@ -113,7 +199,23 @@ class SysmonData(object):
             'relation': 'load',
         })
 
-    def process_remotethread(self, eid, mid, props):
+    @classmethod
+    def process_remotethread(cls, eid, mid, props):
+        """
+        Event ID - 8
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourceProcessGuid" inType="win:GUID" />
+        <data name="SourceProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="SourceImage" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetProcessGuid" inType="win:GUID" />
+        <data name="TargetProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="TargetImage" inType="win:UnicodeString" outType="xs:string" />
+        <data name="NewThreadId" inType="win:UInt32" />
+        <data name="StartAddress" inType="win:UnicodeString" outType="xs:string" />
+        <data name="StartModule" inType="win:UnicodeString" outType="xs:string" />
+        <data name="StartFunction" inType="win:UnicodeString" outType="xs:string" />
+        """
         return ProcessBehavior({
             'parent': {
                 'image': props[4],
@@ -134,7 +236,17 @@ class SysmonData(object):
             'relation': 'inject',
         })
 
-    def process_readfile(self, eid, mid, props):
+    @classmethod
+    def process_readfile(cls, eid, mid, props):
+        """
+        Event ID - 9
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Device" inType="win:UnicodeString" outType="xs:string" />
+        """
         return FileBehavior({
             'process': {
                 'image': props[4],
@@ -150,7 +262,22 @@ class SysmonData(object):
             'relation': 'read',
         })
 
-    def process_access_process(self, eid, mid, props):
+    @classmethod
+    def process_access_process(cls, eid, mid, props):
+        """
+        Event ID - 10
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourceProcessGUID" inType="win:GUID" />
+        <data name="SourceProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="SourceThreadId" inType="win:UInt32" />
+        <data name="SourceImage" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetProcessGUID" inType="win:GUID" />
+        <data name="TargetProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="TargetImage" inType="win:UnicodeString" outType="xs:string" />
+        <data name="GrantedAccess" inType="win:HexInt32" />
+        <data name="CallTrace" inType="win:UnicodeString" outType="xs:string" />
+        """
         return ProcessBehavior({
             'parent': {
                 'image': props[5],
@@ -171,7 +298,28 @@ class SysmonData(object):
             'relation': 'access',
         })
 
-    def process_create_file(self, eid, mid, props):
+    @classmethod
+    def process_create_file(cls, eid, mid, props):
+        """
+        Event ID - 11
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetFilename" inType="win:UnicodeString" outType="xs:string" />
+        <data name="CreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+
+        Event ID - 15
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetFilename" inType="win:UnicodeString" outType="xs:string" />
+        <data name="CreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Hash" inType="win:UnicodeString" outType="xs:string" />
+        """
         _data = {
             'process': {
                 'image': props[4],
@@ -192,7 +340,38 @@ class SysmonData(object):
 
         return FileBehavior(_data)
 
-    def process_reg(self, eid, mid, props):
+    @classmethod
+    def process_reg(cls, eid, mid, props):
+        """
+        Event ID - 12
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="EventType" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetObject" inType="win:UnicodeString" outType="xs:string" />
+
+        Event ID - 13
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="EventType" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetObject" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Details" inType="win:UnicodeString" outType="xs:string" />
+
+        Event ID - 14
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="EventType" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="TargetObject" inType="win:UnicodeString" outType="xs:string" />
+        <data name="NewName" inType="win:UnicodeString" outType="xs:string" />
+        """
         _data = {
             'process': {
                 'image': props[5],
@@ -221,14 +400,34 @@ class SysmonData(object):
 
         return RegistryBehavior(_data)
 
-    def process_pipe(self, eid, mid, props):
+    @classmethod
+    def process_pipe(cls, eid, mid, props):
+        """
+        Event ID - 17
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="EventType" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="PipeName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+
+        Event ID - 18
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="EventType" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="PipeName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        """
         _data = {
             'process': {
-                'image': props[5],
-                'guid': props[2],
+                'image': props[6],
+                'guid': props[3],
             },
             'file': {
-                'path': props[4],
+                'path': props[5],
                 'type': 'pipe',
             },
             'datetime': datetime.strptime(props[1].split('.')[0], '%Y-%m-%d %H:%M:%S').isoformat(),
@@ -243,50 +442,31 @@ class SysmonData(object):
 
         return FileBehavior(_data)
 
-    def process_wmi(self, eid, mid, props):
+    @classmethod
+    def process_wmi(cls, eid, mid, props):
         return None
 
-    def from_winlogbeat(self, _es, _index, startdate, enddate):
-        ts_tr = format_daterange((startdate, enddate))
-        qstr = '@timestamp:[{} TO {}]'.format(ts_tr[0], ts_tr[1])
-        raw_data = _es.load(_index, '_doc', qstr)
-        behavior_list = []
-
-        for _, e in raw_data.iterrows():
-            eid = str(e['winlog']['event_id'])
-            func = self.eventid_behavior_mappings(eid)
-
-            if func:
-                try:
-                    props = [en.split(': ')[1] for en in e['message'].split('\n')[1:]]
-                    mid = encode_md5(e['winlog']['computer_name'])
-                    behav = func(eid, mid, props)
-                    behavior_list.append(behav)
-                except Exception as e:
-                    log_error('Error: {} {}-{}'.format(e, eid, repr(props)))
-
-        return behavior_list
-
-    def eventid_behavior_mappings(self, eid):
+    @classmethod
+    def eventid_behavior_mappings(cls, eid):
         mappings = {
-            '1': self.process_create_process,
-            '2': self.process_timestomp,
-            '3': self.process_network,
-            '6': self.process_driver,
-            '7': self.process_imageload,
-            '8': self.process_remotethread,
-            '9': self.process_readfile,
-            '10': self.process_access_process,
-            '11': self.process_create_file,
-            '12': self.process_reg,
-            '13': self.process_reg,
-            '14': self.process_reg,
-            '15': self.process_create_file,
-            '17': self.process_pipe,
-            '18': self.process_pipe,
-            '19': self.process_wmi,
-            '20': self.process_wmi,
-            '21': self.process_wmi,
+            '1': cls.process_create_process,
+            '2': cls.process_timestomp,
+            '3': cls.process_network,
+            '6': cls.process_driver,
+            '7': cls.process_imageload,
+            '8': cls.process_remotethread,
+            '9': cls.process_readfile,
+            '10': cls.process_access_process,
+            '11': cls.process_create_file,
+            '12': cls.process_reg,
+            '13': cls.process_reg,
+            '14': cls.process_reg,
+            '15': cls.process_create_file,
+            '17': cls.process_pipe,
+            '18': cls.process_pipe,
+            '19': cls.process_wmi,
+            '20': cls.process_wmi,
+            '21': cls.process_wmi,
         }
         if eid in mappings.keys():
             return mappings[eid]

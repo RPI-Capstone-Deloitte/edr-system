@@ -6,11 +6,14 @@ from config import *
 
 
 class ES(object):
-    def __init__(self):
-        self.es = Elasticsearch([ES_HOST])
-        self.winlogbeat = WINLOGBEAT_INDEX
+    es = None
 
-    def insert_behaviors(self, _index, data):
+    @classmethod
+    def connect(cls):
+        cls.es = Elasticsearch([ES_HOST])
+
+    @classmethod
+    def insert_behaviors(cls, _index, data):
         records = []
         for _be in data:
             if _be is None:
@@ -29,12 +32,15 @@ class ES(object):
                 log_error('Elasticsearch insert failed. {}'.format(e))
                 log_error(pandas.DataFrame([_record], columns=_cols).loc[0])
 
-        helpers.bulk(self.es, records)
+        helpers.bulk(cls.es, records)
 
-    def load(self, _index, doctype, qstring):
+    @classmethod
+    def load(cls, _index, doctype, args):
         records = []
         try:
-            page = self.es.search(index=_index, doc_type=doctype, scroll='2m', size=1000, q=qstring, timeout='10m')
+            page = cls.es.search(index=_index, doc_type=doctype, scroll='2m', size=1000, timeout='10m', body={
+                "query" : args,
+            })
 
             sid = page['_scroll_id']
             scroll_size = page['hits']['total']['value']
@@ -42,7 +48,7 @@ class ES(object):
             records += [x['_source'] for x in docs]
 
             while scroll_size > 0:
-                page = self.es.scroll(scroll_id=sid, scroll='5m')
+                page = cls.es.scroll(scroll_id=sid, scroll='5m')
                 sid = page['_scroll_id']
                 scroll_size = len(page['hits']['hits'])
                 docs = page['hits']['hits']
@@ -53,13 +59,14 @@ class ES(object):
             log_error('Elasticsearch query failed. {}'.format(e))
             return pandas.DataFrame([])
 
-    def query(self, _index, doctype, args, page_size, page_index):
+    @classmethod
+    def query(cls, _index, doctype, args, page_size, page_index):
         records = []
         try:
-            page = self.es.search(index=_index, doc_type=doctype, body={
-                "query" : args,
-                "from" : page_index * page_size,
-                "size" : page_size
+            page = cls.es.search(index=_index, doc_type=doctype, body={
+                "query": args,
+                "from": page_index * page_size,
+                "size": page_size
             })
             docs = page['hits']['hits']
             records += [x['_source'] for x in docs]
@@ -68,3 +75,6 @@ class ES(object):
         except Exception as e:
             log_error('Elasticsearch query failed. {}'.format(e))
             return records
+
+
+ES.connect()
