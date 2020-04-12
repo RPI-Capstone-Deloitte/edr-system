@@ -1,3 +1,9 @@
 flask
 pymongo
 elasticsearch
+yaml
+re
+pandas
+numpy
+hashlib
+termcolor
