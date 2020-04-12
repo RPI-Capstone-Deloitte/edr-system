@@ -3,6 +3,7 @@ from flask import Flask
 from flask import request
 from config import *
 import controller.behavior as behavior_controller
+import view.message as msg
 
 app = Flask(__name__)
 
@@ -19,11 +20,14 @@ def update_data():
 
 @app.route("/api/behavior", methods=['GET'])
 def get_behavior():
-    return behavior_controller.get_behavior(request.json)
+    behavior = behavior_controller.get_behavior(request.json)
+    return msg.success_msg(behavior)
+
 
 @app.route("/api/abnormal", methods=['GET'])
 def get_abnormal():
-    return behavior_controller.get_abnormal(request.json)
+    abnormal = behavior_controller.get_abnormal(request.json)
+    return msg.success_msg(abnormal)
 
 
 if __name__ == '__main__':

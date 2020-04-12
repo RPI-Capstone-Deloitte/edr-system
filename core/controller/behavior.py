@@ -44,8 +44,8 @@ def get_behavior(form):
         }
     })
 
-    return msg.success_msg(result)
-
+    # return msg.success_msg(result)
+    return result
 
 def load_behavior(form):
     if not assert_keys_in_form_exist(form, ['endpointID', 'startDate', 'endDate']):
@@ -143,4 +143,5 @@ def get_abnormal(form):
         }
     })
 
-    return msg.success_msg(result)
+    # return msg.success_msg(result)
+    return result

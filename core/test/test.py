@@ -3,9 +3,12 @@ import data.attck as attck
 import data.rule as rule
 
 form = {
-    'endpointID': 'DESKTOP-3LRRD6K',
-    'startDate': '2020-04-05',
-    'endDate': '2020-04-07'
+    "behaviorType" : "ProcessBehavior",
+    "endpointID" : "DESKTOP-3LRRD6K",
+    "startDate" : "2020-04-08",
+    "endDate" : "2020-04-08",
+    "pageSize" : "10",
+    "pageIndex" : "0"
 }
 
 ts_tr = format_daterange(('2020-04-05', '2020-04-07'))
