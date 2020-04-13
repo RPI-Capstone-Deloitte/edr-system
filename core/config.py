@@ -12,6 +12,6 @@ APP_DEBUG_MODE = os.getenv("APP_DEBUG_MODE", True)
 APP_HOST = "0.0.0.0"
 
 # ELK Settings
-ES_HOST = os.getenv("ES_HOST", "http://localhost:9200")
+ES_HOST = os.getenv("ES_HOST", "elastic")
 WINLOGBEAT_INDEX = os.getenv("WINLOGBEAT_INDEX", "winlogbeat-*")
 ATTCK_YAML = "attck.yaml"

@@ -1,9 +1,7 @@
 flask
 pymongo
 elasticsearch
-yaml
-re
+pyyaml
 pandas
 numpy
-hashlib
 termcolor
