@@ -5,7 +5,7 @@ from utils.log import *
 from config import *
 
 
-class ES(object):
+class ES:
     es = None
 
     @classmethod

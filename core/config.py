@@ -1,11 +1,10 @@
 import os
 
 # Database Settings
-MONGO_HOST = os.getenv("DB_HOST", "mongo")
-MONGO_PORT = os.getenv("DB_PORT", "27017")
-MONGO_USER = os.getenv("DB_USER", "test")
-MONGO_PASSWORD = os.getenv("DB_PASSWORD", "test")
-MONGO_NAME = os.getenv("DB_NAME", "edr")
+DB_NAME = os.getenv('DB_NAME', 'edr')
+DB_USER = os.getenv('DB_USER', '')
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_PASS = os.getenv('DB_PASS', '')
 
 # App Settings
 APP_DEBUG_MODE = os.getenv("APP_DEBUG_MODE", True)
