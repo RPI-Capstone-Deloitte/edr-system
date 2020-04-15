@@ -5,3 +5,4 @@ pyyaml
 pandas
 numpy
 termcolor
+psycopg2

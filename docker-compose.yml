@@ -1,22 +1,32 @@
 version: "3"
 
 services:
-    mongo:
-        container_name: edr_mongo
-        build: ./mongodb
+    psql:
+        container_name: edr_psql
+        build: ./psql
         ports:
-           - 27017:27017
+                - 5432:5432
+        network_mode: bridge
         environment:
-                - MONGO_INITDB_ROOT_USERNAME=test
-                - MONGO_INITDB_ROOT_PASSWORD=test   
+                - POSTGRES_DB=edr
+                - POSTGRES_USER=capstone
+                - POSTGRES_PASSWORD=capstone
     core:
         container_name: edr_core
         build: ./core
         ports:
            - 5000:5000
+        depends_on:
+                - "psql"
+        network_mode: bridge
+        links:
+                - psql
+        external_links:
+                - cranky_shaw:elastic
         environment:
-                - DB_HOST=mongo
-                - DB_PORT=27017
-                - DB_USER=test
-                - DB_PASSWORD=test
+                - DB_HOST=psql
+                - DB_PORT=5432
+                - DB_USER=capstone
+                - DB_PASS=capstone
                 - DB_NAME=edr
+                - ES_HOST=elastic

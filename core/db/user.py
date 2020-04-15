@@ -4,7 +4,7 @@ from db.postgres import PSQL as db
 class User:
 
     @classmethod
-    def get_user(cls, uid='%', name='%', email='%', password='%', phone='%', major='%', degree='%', enable=True):
+    def get_user(cls, uid='%', name='%', email='%', password='%', phone='%', enable=True):
         sql = """   SELECT user_id, name, email, phone,password,enable
                     FROM public.user_account
                     WHERE   user_id::text   LIKE %s AND
@@ -14,7 +14,7 @@ class User:
                             password    LIKE %s AND 
                             enable = %s"""
 
-        args = (str(uid), name, email, phone, password, major, degree, enable)
+        args = (str(uid), name, email, phone, password, enable)
         return db.execute(sql, args, True)
 
     @classmethod
@@ -52,7 +52,7 @@ class User:
                         name        = %(Name)s, 
                         email       = %(Email)s,
                         phone       = %(Phone)s,
-                        password    = %(Password)s,
+                        password    = %(Password)s
                     WHERE 
                         user_id = %(UID)s;
                     """

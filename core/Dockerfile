@@ -3,6 +3,6 @@ WORKDIR /app
 COPY . /app
 COPY requirements.txt /app/tmp/
 
+RUN apt-get -y update && apt-get install -y postgresql-client 
 RUN pip install -r /app/tmp/requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD ["./start.sh", "psql", "python", "app.py"]
