@@ -1,11 +1,11 @@
 {
   "name": "rpi itws endpoint security capstone",
   "description": "deloitte threat detection routing using nodejs",
-  "license": "n/a",
+  "license": "deloitte proprietary",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/petergramenides"
+    "url": "https://github.com/RPI-Capstone-Deloitte/edr-system"
   },
   "dependencies": {
     "express": "^4.17.1",
