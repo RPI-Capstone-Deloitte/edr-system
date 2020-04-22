@@ -1,14 +1,13 @@
-// logs user out of backend server based on sessionID
+// logs user out of backend server based on session_id
 function logout()
 {
-	console.log("logging out!");
-	var sessionID = localStorage['sessionID'];
-	console.log(sessionID);
+	var session_id = localStorage['sessionID'];
+	console.log(session_id);
 	localStorage['sessionID'] = " ";
 	$.ajax({
 	    url: "http://localhost:3000/logout",
 	    dataType: "jsonp",
-	    data: {"session_id": sessionID},
+	    data: {"session_id": session_id},
 	    async: false,
 	    success: function(result){
 	    	console.log("logout successful.");

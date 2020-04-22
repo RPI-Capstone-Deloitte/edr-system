@@ -14,7 +14,7 @@ function getUsername()
 // checks if sessionID exists and redirects user to login if needed
 function checkSessionID()
 {
-	if (localStorage['sessionID'] == null || localStorage['sessionID'] == " ")
+	if (localStorage['sessionID'] == " " || localStorage['sessionID'] == "null")
 	{
 		location.replace("./done");
 	}

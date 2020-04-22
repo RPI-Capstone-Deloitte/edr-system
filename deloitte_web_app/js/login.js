@@ -18,3 +18,22 @@ function login()
 	    	}
 	  }});
 }
+
+function checkSessionID()
+{
+	if (localStorage['sessionID'] == null || localStorage['sessionID'] == "null")
+	{
+		localStorage['sessionID'] = " ";
+	}
+
+	if (localStorage['sessionID'] != " ")
+	{
+		if (confirm("Please logout before logging in to another account.")) {
+			location.replace("./");
+		} else {
+			location.replace("./");
+		}
+	}
+}
+
+checkSessionID();

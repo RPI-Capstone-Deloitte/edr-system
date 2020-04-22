@@ -63,7 +63,7 @@ app.get('/behavior/level', function(request, response)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var attack_id = String(request.query.attack_id);
 	response.header("X-Content-Type-Options", "nosniff");
@@ -106,7 +106,7 @@ app.get('/user', function(req, res)
 	if (session_status == false)
 	{
 		res.header("X-Content-Type-Options", "nosniff");
-	  	return res.jsonp({"error": "error"});
+	  	return res.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
@@ -185,7 +185,7 @@ app.get('/behavior/registry', function(req, resp)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
@@ -216,7 +216,7 @@ app.get('/behavior/network', function(req, resp)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
@@ -247,7 +247,7 @@ app.get('/behavior/file', function(req, resp)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
@@ -278,7 +278,7 @@ app.get('/behavior/process', function(req, resp)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
@@ -308,7 +308,7 @@ app.get('/behavior/abnormal', function(req, resp)
 	if (session_status == false)
 	{
 		resp.header("X-Content-Type-Options", "nosniff");
-	  	return resp.jsonp({"error": "error"});
+	  	return resp.jsonp({"error": "session inactive"});
 	}
 	var options = {
 	  'method': 'GET',
