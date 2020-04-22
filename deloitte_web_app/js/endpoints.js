@@ -45,7 +45,7 @@ function getEndpointData(alert_logs)
 	// outputs unique endpoints data to dashboard
 	for (var x = 0; x < unique_endpoints.length; ++x)
 	{
-		var endpoint_column = '<tr class="tr-shadow"><td>'+ x +'</td>' +
+		var endpoint_column = '<tr class="tr-shadow"><td>'+ (x+1) +'</td>' +
 		'<td><span class="block-email">' + unique_descriptions[x] + '</span></td><td class="desc">' +
 		unique_endpoints[x] + '</td><td>' + unique_date_time[x] + '</td><td>' +
 		'<span class="status--process">Online</span></td></tr>';
