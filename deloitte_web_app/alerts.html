@@ -40,6 +40,7 @@
     <!-- Product Management JS -->
     <script src="js/alerts.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/search.js"></script>
 
 </head>
 
@@ -119,7 +120,7 @@
                         <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
                                 <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for data &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
+                                <button class="au-btn--submit" type="button" onclick="search_logs();">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
@@ -160,9 +161,8 @@
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
                                         <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="property">
+                                            <select class="js-select2" name="property" id="devices">
                                                 <option selected="selected">All Devices</option>
-                                                <option value="" id="device"></option>
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>

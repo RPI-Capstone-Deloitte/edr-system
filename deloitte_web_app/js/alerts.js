@@ -1,3 +1,6 @@
+//list of unique endpoints
+var unique_endpoints = [];
+
 // gets username data based on session ID
 function getUsername()
 {
@@ -20,6 +23,17 @@ function checkSessionID()
 	}
 }
 
+// adds support to display multiple device endpoints as filters
+function displayEndpoints()
+{
+	var device_column_start = '<option value="">';
+	var device_column_end = '</option>';
+	for (var x = 0; x < unique_endpoints.length; ++x)
+	{
+		document.getElementById("devices").innerHTML = document.getElementById("devices").innerHTML + device_column_start + unique_endpoints[x] + device_column_end;
+	}
+}
+
 // displays the alerts in the data dashboard based on analyzed log data
 function displayAlerts(cisa_level, attack_id, process_name, device_name, time_stamp, device_user, threat_type)
 {
@@ -30,7 +44,6 @@ function displayAlerts(cisa_level, attack_id, process_name, device_name, time_st
 	'</td>' + '<td>' + time_stamp + '</td><td>' +
 	'<span class="status--process">' + cisa_level + 
 	'</span> </td><td>' + threat_type + '</td></tr>';
-	document.getElementById("device").innerHTML = device_name;
 	document.getElementById("alerts").innerHTML = document.getElementById("alerts").innerHTML + alert_column;
 }
 
@@ -57,8 +70,13 @@ function getAlertData(alert_logs)
 		var device_user = alert_logs[x]["current.user"].split("\\")[1] + "@deloitte.com";
 		var threat_type = alert_logs[x]["behaviortype"];
 		var attack_id = alert_logs[x]["attckids"];
+		if (unique_endpoints.includes(device_name) == false)
+		{
+			unique_endpoints.push(device_name);
+		}
 		getThreatLevel(attack_id, process_name, device_name, time_stamp, device_user, threat_type);
 	}
+	displayEndpoints();
 }
 
 // gets the alert logs data from the frontend server

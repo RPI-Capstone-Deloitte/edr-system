@@ -40,6 +40,7 @@
     <!-- Product Management JS -->
     <script src="js/endpoints.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/search.js"></script>
 
 </head>
 
@@ -119,7 +120,7 @@
                         <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
                                 <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for data &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
+                                <button class="au-btn--submit" type="button" onclick="search_logs();">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
