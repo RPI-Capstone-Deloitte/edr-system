@@ -1,7 +1,7 @@
 {
-  "name": "rpi itws endpoint security capstone",
+  "name": "rpi-itws-endpoint-security-capstone",
   "description": "deloitte threat detection routing using nodejs",
-  "license": "deloitte proprietary",
+  "license": "MIT",
   "version": "1.0.0",
   "repository": {
     "type": "git",
