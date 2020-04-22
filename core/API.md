@@ -25,7 +25,7 @@ application/json
 #### Body (RegistryBehavior)
 ```json
 {
-    success: true
+    success: true,
     errMsg: null,
     content: [
     {
@@ -80,7 +80,7 @@ application/json
 #### Body (ProcessBehavior)
 ```json
 {
-    success: true
+    success: true,
     errMsg: null,
     content: [
     {
@@ -141,7 +141,7 @@ application/json
 #### Body (ProcessBehavior)
 ```json
 {
-    success: true
+    success: true,
     errMsg: null,
     content: [
     {
@@ -206,7 +206,7 @@ application/json
 #### Body (FileBehavior)
 ```json
 {
-    success: true
+    success: true,
     errMsg: null,
     content: [
     {
