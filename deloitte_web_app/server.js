@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 var sessions = [];
+var original_date = "";
 
 function calculateThreatScore(T){var C=0,a=80,r=0,c=0;"T1003"==T&&(C=100,a=100,r=80,c=100),"T1004"==T&&(C=20,r=20,c=50),"T1028"==T&&(C=100,r=70,c=50),"T1035"==T&&(C=35,r=20,c=50),"T1042"==T&&(C=35,r=20,c=50),"T1053"==T&&(C=35,r=20,c=75),"T1059"==T&&(C=35,r=20,c=50),"T1060"==T&&(C=0,r=20,c=75),"T1064"==T&&(C=0,r=20,c=75),"T1070"==T&&(C=60,r=70,c=75),"T1037"==T&&(C=0,r=20,c=50),"T1076"==T&&(C=0,r=20,c=50),"T1085"==T&&(C=0,r=20,c=50),"T1086"==T&&(C=35,r=50,c=75),"T1088"==T&&(C=60,r=50,c=75),"T1101"==T&&(C=35,r=20,c=50),"T1103"==T&&(C=0,r=20,c=50),"T1117"==T&&(C=0,r=20,c=50),"T1122"==T&&(C=0,r=20,c=50),"T1128"==T&&(C=0,r=20,c=50),"T1131"==T&&(C=60,r=80,c=50),"T1138"==T&&(C=0,r=20,c=50),"T1140"==T&&(C=60,r=70,c=75),"T1170"==T&&(C=0,r=20,c=50),"T1180"==T&&(C=0,r=20,c=50),"T1182"==T&&(C=0,r=20,c=50),"T1183"==T&&(C=0,r=20,c=50),"T1191"==T&&(C=0,r=20,c=50),"T1196"==T&&(C=0,r=20,c=50),"T1197"==T&&(C=0,r=20,c=50),"T1202"==T&&(C=0,r=20,c=50),"T1216"==T&&(C=60,r=50,c=75),"T1218"==T&&(C=60,r=20,c=50),"T1220"==T&&(C=0,r=20,c=50),"T1223"==T&&(C=0,r=0,c=50),"C1000"==T&&(C=35,r=20,c=50),"C1001"==T&&(C=35,r=50,c=75),"C1002"==T&&(C=0,r=20,c=50),"C1003"==T&&(C=60,r=20,c=75),"C1004"==T&&(C=0,r=50,c=50),"C1005"==T&&(C=35,r=50,c=75),"C1006"==T&&(C=0,r=20,c=50);var e=(C*(6/34)+a*(5/34)+4/34*50+4/34*50+r*(2/34)+4/34*40+3/34*35+c*(6/34)-31)/69*100;console.log("threat detected with cisa level of " + Math.ceil(e));return Math.ceil(e)}
 
@@ -20,6 +21,16 @@ function check_session(sessionID)
 			return true;
 		}
 	} return false;
+}
+
+function get_date()
+{
+	var current_date = new Date();
+	var month = current_date.getUTCMonth() + 1;
+	var day = current_date.getUTCDate();
+	var year = current_date.getUTCFullYear();
+	var today = year + "-" + month + "-" + day;
+	return today;
 }
 
 app.get('/behavior/level', function(request, response)
@@ -150,8 +161,8 @@ app.get('/behavior/registry', function(req, resp)
 	    'Content-Type': ['application/json', 'application/json']
 	  },
 	  body: JSON.stringify({"behaviorType":"RegistryBehavior",
-	  	"endpointID":"DESKTOP-3LRRD6K","startDate":"2020-04-12",
-	  	"endDate":"2020-04-12","pageSize":"10","pageIndex":"0"})
+	  	"endpointID":"DESKTOP-3LRRD6K","startDate": original_date,
+	  	"endDate": get_date(),"pageSize":"10","pageIndex":"0"})
 
 	};
 	request(options, function (error, response) { 
@@ -180,8 +191,8 @@ app.get('/behavior/network', function(req, resp)
 	    'Content-Type': ['application/json', 'application/json']
 	  },
 	  body: JSON.stringify({"behaviorType":"NetworkBehavior",
-	  	"endpointID":"DESKTOP-3LRRD6K","startDate":"2020-04-12",
-	  	"endDate":"2020-04-12","pageSize":"10","pageIndex":"0"})
+	  	"endpointID":"DESKTOP-3LRRD6K","startDate": original_date,
+	  	"endDate": get_date(),"pageSize":"10","pageIndex":"0"})
 
 	};
 	request(options, function (error, response) { 
@@ -211,7 +222,7 @@ app.get('/behavior/file', function(req, resp)
 	  },
 	  body: JSON.stringify({"behaviorType":"FileBehavior",
 	  	"endpointID":"DESKTOP-3LRRD6K",
-	  	"startDate":"2020-04-12","endDate":"2020-04-12",
+	  	"startDate": original_date,"endDate": get_date(),
 	  	"pageSize":"10","pageIndex":"0"})
 	};
 	request(options, function (error, response) { 
@@ -240,8 +251,8 @@ app.get('/behavior/process', function(req, resp)
 	    'Content-Type': ['application/json', 'application/json']
 	  },
 	  body: JSON.stringify({"behaviorType":"ProcessBehavior",
-	  	"endpointID":"DESKTOP-3LRRD6K","startDate":"2020-04-12",
-	  	"endDate":"2020-04-12","pageSize":"10","pageIndex":"0"})
+	  	"endpointID":"DESKTOP-3LRRD6K","startDate": original_date,
+	  	"endDate": get_date(),"pageSize":"10","pageIndex":"0"})
 	};
 	request(options, function (error, response) {
 		if (error) throw new Error(error);
@@ -269,8 +280,8 @@ app.get('/behavior/abnormal', function(req, resp)
 	    'Content-Type': ['application/json', 'application/json']
 	  },
 	  body: JSON.stringify({"behaviorType":"ProcessBehavior",
-	  	"endpointID":"DESKTOP-3LRRD6K","startDate":"2020-04-12",
-	  	"endDate":"2020-04-12","pageSize":"10","pageIndex":"0"})
+	  	"endpointID":"DESKTOP-3LRRD6K","startDate": original_date,
+	  	"endDate": get_date(),"pageSize":"10","pageIndex":"0"})
 	};
 	request(options, function (error, response) { 
 	  if (error) throw new Error(error);
@@ -293,4 +304,5 @@ app.use('/', express.static(__dirname));
 
 app.listen(3000, function(){
   console.log("Server up on port 3000...");
+  original_date = get_date();
 });
