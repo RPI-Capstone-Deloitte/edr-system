@@ -80,7 +80,7 @@ application/json
 
 ```json
 {
-    "success": true
+    "success": true,
     "errMsg": null,
     "content": {}
 }
@@ -121,7 +121,7 @@ application/json
 
 ```json
 {
-    "success": true
+    "success": true,
     "errMsg": null,
     "content": 
     {
@@ -163,7 +163,7 @@ application/json
 
 ```json
 {
-    "success": true
+    "success": true,
     "errMsg": null,
     "content": 
     {   
