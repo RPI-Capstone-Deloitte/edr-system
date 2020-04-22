@@ -1,4 +1,4 @@
-//! moment.js
+//! moment.js : functions used for making the template dynamic (reference: CoolAdmin)
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :

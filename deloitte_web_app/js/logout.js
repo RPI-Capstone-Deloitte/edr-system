@@ -1,3 +1,4 @@
+// logs user out of backend server based on sessionID
 function logout()
 {
 	console.log("logging out!");

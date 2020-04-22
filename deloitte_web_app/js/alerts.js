@@ -1,3 +1,4 @@
+// gets username data based on session ID
 function getUsername()
 {
 	$.ajax({
@@ -10,6 +11,7 @@ function getUsername()
 	  }});
 }
 
+// checks if sessionID exists and redirects user to login if needed
 function checkSessionID()
 {
 	if (localStorage['sessionID'] == null || localStorage['sessionID'] == " ")
@@ -18,6 +20,7 @@ function checkSessionID()
 	}
 }
 
+// displays the alerts in the data dashboard based on analyzed log data
 function displayAlerts(cisa_level, attack_id, process_name, device_name, time_stamp, device_user, threat_type)
 {
 	var alert_column = '<tr class="tr-shadow">' +
@@ -31,6 +34,7 @@ function displayAlerts(cisa_level, attack_id, process_name, device_name, time_st
 	document.getElementById("alerts").innerHTML = document.getElementById("alerts").innerHTML + alert_column;
 }
 
+// gets the cisa threat score (level) based on the MITRE ATT&CK id
 function getThreatLevel(attack_id, process_name, device_name, time_stamp, device_user, threat_type)
 {
 	$.ajax({
@@ -43,6 +47,7 @@ function getThreatLevel(attack_id, process_name, device_name, time_stamp, device
 	  }});
 }
 
+// parses the alert log data and gets the threat levels
 function getAlertData(alert_logs)
 {
 	for (var x = 0; x < alert_logs.length; x++) {
@@ -56,6 +61,7 @@ function getAlertData(alert_logs)
 	}
 }
 
+// gets the alert logs data from the frontend server
 function getAlerts()
 {
   $.ajax({
@@ -68,8 +74,11 @@ function getAlerts()
   }});
 }
 
+// checks active session
 checkSessionID();
 $( document ).ready(function() {
+	// gets username data
 	getUsername();
+	// gets alert data
 	getAlerts();
 });

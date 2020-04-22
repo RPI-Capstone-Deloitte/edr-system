@@ -1,3 +1,4 @@
+// logs user into backend server based on credentials
 function login()
 {
 	var email = document.getElementById("email").value;

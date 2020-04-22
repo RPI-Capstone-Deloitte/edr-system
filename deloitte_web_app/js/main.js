@@ -1,3 +1,4 @@
+//! main.js : functions used for making the dashboard charts dynamic (reference: CoolAdmin)
 
 (function ($) {
   // USE STRICT

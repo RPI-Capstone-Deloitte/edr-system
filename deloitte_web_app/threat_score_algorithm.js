@@ -1,5 +1,11 @@
+// calculates CISA threat score based on MITRE ATT&CK id
 function calculateThreatScore(attack_id)
 {
+	// MITRE ATT&CK pre-sets translated to
+	// CISA minimum scores from the U.S.
+	// Department of Homeland Security
+	// e.g. minor attack = 10
+
 	var minimum_score = 31;
 	var functional_impact = 0;
 	var observed_activity = 80;
@@ -9,6 +15,10 @@ function calculateThreatScore(attack_id)
 	var recoverability = 40;
 	var cross_dependency = 35;
 	var potential_impact = 0;
+
+	// changes CISA weights based on
+	// MITRE ATT&CK ids indicating
+	// different types of attacks
 
 	if (attack_id == "T1003")
 	{
@@ -305,7 +315,12 @@ function calculateThreatScore(attack_id)
 		potential_impact = 50;
 	}
 
+	// calculates maximum threat score based on cisa default algorithm
 	var maximum_score = (functional_impact * (6/34)) + (observed_activity * (5/34)) + (activity_location * (4/34)) + (actor_type * (4/34)) + (information_impact * (2/34)) + (recoverability * (4/34)) + (cross_dependency * (3/34)) + (potential_impact * (6/34));
+
+	// calculates cisa score based cisa default algorithm
 	var cisa_score = ((maximum_score - minimum_score) / (100 - minimum_score)) * 100;
+
+	// returns cisa score rounded to the nearest integer
 	return Math.ceil(cisa_score)
 }

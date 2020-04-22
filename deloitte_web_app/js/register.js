@@ -1,3 +1,4 @@
+// registers user with backend server based on credentials
 function register_user()
 {
 	var name = document.getElementById("name").value;

@@ -1,3 +1,4 @@
+// downloads file in utf8-format from content
 function download_file(file_name, content) {
   var element = document.createElement('a');
   element.style.display = "none";
@@ -8,8 +9,10 @@ function download_file(file_name, content) {
   document.body.removeChild(element);
 }
 
+// gathers and downloads endpoint logs to client
 function download_endpoints()
 {
+  // gets alert endpoint logs
 	$.ajax({
     url: "http://localhost:3000/behavior/abnormal",
     dataType: "jsonp",
@@ -20,7 +23,8 @@ function download_endpoints()
       var unique_descriptions = [];
       var unique_date_time = [];
       var unique_status = [];
-
+      
+      // gathers information on unique endpoints from logs
       for (var x = 0; x < alert_logs.length; ++x)
       {
         var device_user = alert_logs[x]["current.user"].split("\\")[0];
@@ -33,21 +37,25 @@ function download_endpoints()
           unique_date_time.push(time_stamp);
         }
       }
+      // saves endpoints with chronological index as ID (data is subset of the ID)
       var export_object = {};
       for (var x = 0; x < unique_endpoints.length; ++x)
       {
         export_object[x.toString()] =
         {
-          "id": x,
           "email": unique_descriptions[x],
           "description": unique_endpoints[x],
           "current_datetime": unique_date_time[x],
           "status": "Online"
         };
       }
+      // downloads machine learning endpoints based on final export object
       download_file("ml_endpoints.json", JSON.stringify(export_object));
+
+      // closes log download tab
       window.close();
   }});
 }
 
+// launches download endpoints process
 download_endpoints();

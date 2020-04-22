@@ -1,3 +1,4 @@
+// gets username data based on session ID
 function getUsername()
 {
 	$.ajax({
@@ -10,6 +11,7 @@ function getUsername()
 	  }});
 }
 
+// checks if sessionID exists and redirects user to login if needed
 function checkSessionID()
 {
 	if (localStorage['sessionID'] == null || localStorage['sessionID'] == " ")
@@ -18,6 +20,7 @@ function checkSessionID()
 	}
 }
 
+// parses logs and outputs unique endpoints data
 function getEndpointData(alert_logs)
 {
 	var unique_endpoints = [];
@@ -25,6 +28,7 @@ function getEndpointData(alert_logs)
 	var unique_date_time = [];
 	var unique_status = [];
 
+	// gathers unique endpoints and identifiers from logs
 	for (var x = 0; x < alert_logs.length; ++x)
 	{
 		var device_user = alert_logs[x]["current.user"].split("\\")[0];
@@ -38,6 +42,7 @@ function getEndpointData(alert_logs)
 		}
 	}
 
+	// outputs unique endpoints data to dashboard
 	for (var x = 0; x < unique_endpoints.length; ++x)
 	{
 		var endpoint_column = '<tr class="tr-shadow"><td>'+ x +'</td>' +
@@ -48,6 +53,7 @@ function getEndpointData(alert_logs)
 	}
 }
 
+// gets endpoint data and launches parsing process
 function getEndpoints()
 {
   $.ajax({
@@ -60,8 +66,11 @@ function getEndpoints()
   }});
 }
 
+// checks active session
 checkSessionID();
 $( document ).ready(function() {
+	// gets username data
 	getUsername();
+	// gets endpoint data
 	getEndpoints();
 });

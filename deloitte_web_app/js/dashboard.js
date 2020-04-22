@@ -1,3 +1,4 @@
+// gets username data based on session ID
 function getUsername()
 {
 	$.ajax({
@@ -10,6 +11,7 @@ function getUsername()
 	  }});
 }
 
+// checks if sessionID exists and redirects user to login if needed
 function checkSessionID()
 {
 	if (localStorage['sessionID'] == null || localStorage['sessionID'] == " ")
@@ -18,6 +20,7 @@ function checkSessionID()
 	}
 }
 
+// sets dashboard data based on parsed alert logs
 function getDashboardData(alert_logs)
 {
 	var attack_id = alert_logs[0]["attckids"];
@@ -26,6 +29,7 @@ function getDashboardData(alert_logs)
 	document.getElementById("average_cisa").innerHTML = "27";
 }
 
+// gets number of registrybehavior logs
 function getRegistryData(number_logs)
 {
 	$.ajax({
@@ -39,6 +43,7 @@ function getRegistryData(number_logs)
   	}});
 }
 
+// gets number of filebehavior logs
 function getFileData(number_logs)
 {
 	$.ajax({
@@ -52,6 +57,7 @@ function getFileData(number_logs)
   	}});
 }
 
+// gets number of networkbehavior logs
 function getNetworkData(number_logs)
 {
 	$.ajax({
@@ -65,6 +71,7 @@ function getNetworkData(number_logs)
   	}});
 }
 
+// gets number of processbehavior logs
 function getProcessData()
 {
 	$.ajax({
@@ -77,6 +84,7 @@ function getProcessData()
   }});
 }
 
+// gets alert logs and launches dashboard process
 function getDashboard()
 {
   $.ajax({
@@ -89,9 +97,13 @@ function getDashboard()
   }});
 }
 
+// checks active session
 checkSessionID();
 $( document ).ready(function() {
+	// gets username data
 	getUsername();
+	// gets dashboard data
 	getDashboard();
+	// gets logs data
 	getProcessData();
 });

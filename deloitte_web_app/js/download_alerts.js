@@ -1,3 +1,4 @@
+// downloads file in utf8-format from content
 function download_file(file_name, content) {
   var element = document.createElement('a');
   element.style.display = "none";
@@ -8,6 +9,7 @@ function download_file(file_name, content) {
   document.body.removeChild(element);
 }
 
+// gathers and downloads alert logs to client
 function download_alerts()
 {
 	$.ajax({
@@ -21,4 +23,5 @@ function download_alerts()
   }});
 }
 
+// launches download alerts process
 download_alerts();
