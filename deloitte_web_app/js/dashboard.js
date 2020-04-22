@@ -20,13 +20,57 @@ function checkSessionID()
 	}
 }
 
+function getNumberOfEndpoints(alert_logs)
+{
+	var unique_endpoints = [];
+
+	// gathers unique endpoints and identifiers from logs
+	for (var x = 0; x < alert_logs.length; ++x)
+	{
+		var device_user = alert_logs[x]["current.user"].split("\\")[0];
+		if (unique_endpoints.includes(device_user) != true)
+		{
+			unique_endpoints.push(device_user);
+		}
+	}
+	document.getElementById("number_endpoints").innerHTML = unique_endpoints.length;
+}
+
+function getThreatLevel(attack_id)
+{
+	$.ajax({
+	    url: "http://localhost:3000/behavior/level",
+	    dataType: "jsonp",
+	    data: {"session_id": localStorage['sessionID'], "attack_id": attack_id},
+	    async: false,
+	    success: function(result){
+	    	console.log("[sucess] populated cisa level.");
+	  }});
+}
+
+function getAverageCISA(alert_logs)
+{
+	for (var x = 0; x < alert_logs.length; x++)
+	{
+		var attack_id = alert_logs[x]["attckids"];
+		getThreatLevel(attack_id);
+	}
+	$.ajax({
+	    url: "http://localhost:3000/behavior/level/average",
+	    dataType: "jsonp",
+	    data: {"session_id": localStorage['sessionID']},
+	    async: false,
+	    success: function(result){
+	    	document.getElementById("average_cisa").innerHTML = result.success;
+	  }});
+}
+
 // sets dashboard data based on parsed alert logs
 function getDashboardData(alert_logs)
 {
-	var attack_id = alert_logs[0]["attckids"];
 	document.getElementById("number_threats").innerHTML = alert_logs.length;
-	document.getElementById("number_endpoints").innerHTML = 1;
-	document.getElementById("average_cisa").innerHTML = "27";
+	getAverageCISA(alert_logs);
+	getNumberOfEndpoints(alert_logs);
 }
 
 // gets number of registrybehavior logs

@@ -163,7 +163,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 id="number_endpoints">Unknown</h2>
+                                                <h2 id="number_endpoints">Scanning</h2>
                                                 <span>endpoints online</span>
                                             </div>
                                         </div>
@@ -178,7 +178,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 id="number_logs">Unknown</h2>
+                                                <h2 id="number_logs">Scanning</h2>
                                                 <span>logs scanned</span>
                                             </div>
                                         </div>
@@ -193,8 +193,8 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 id="number_threats">Unknown</h2>
-                                                <span>immediate threats</span>
+                                                <h2 id="number_threats">Scanning</h2>
+                                                <span>current threats</span>
                                             </div>
                                         </div>
                                         <div class="overview-chart">
@@ -208,7 +208,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 id="average_cisa">Unknown</h2>
+                                                <h2 id="average_cisa">Scanning</h2>
                                                 <span>average threat level</span>
                                             </div>
                                         </div>
@@ -221,36 +221,10 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="au-card recent-report">
+                                <div class="au-card m-b-30">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2">recent reports</h3>
-                                        <div class="chart-info">
-                                            <div class="chart-info__left">
-                                                <div class="chart-note">
-                                                    <span class="dot dot--blue"></span>
-                                                    <span>scanned</span>
-                                                </div>
-                                                <div class="chart-note mr-0">
-                                                    <span class="dot dot--green"></span>
-                                                    <span>threat level</span>
-                                                </div>
-                                            </div>
-                                            <div class="chart-info__right">
-                                                <div class="chart-statis">
-                                                    <span class="index incre">
-                                                        <i class="zmdi zmdi-long-arrow-up"></i>25%</span>
-                                                    <span class="label">scanned</span>
-                                                </div>
-                                                <div class="chart-statis mr-0">
-                                                    <span class="index decre">
-                                                        <i class="zmdi zmdi-long-arrow-down"></i>10%</span>
-                                                    <span class="label">threat level</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recent-report__chart">
-                                            <canvas id="recent-rep-chart"></canvas>
-                                        </div>
+                                        <h3 class="title-2 m-b-40">Summary By Threats Level</h3>
+                                        <canvas id="polarChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -262,12 +236,28 @@
                                             <div class="col-xl-6">
                                                 <div class="chart-note-wrap">
                                                     <div class="chart-note mr-0 d-block">
+                                                        <span class="dot dot--black"></span>
+                                                        <span>emergency threat</span>
+                                                    </div>
+                                                    <div class="chart-note mr-0 d-block">
                                                         <span class="dot dot--red"></span>
-                                                        <span>immediate threat</span>
+                                                        <span>severe threat</span>
+                                                    </div>
+                                                    <div class="chart-note mr-0 d-block">
+                                                        <span class="dot dot--orange"></span>
+                                                        <span>high threat</span>
+                                                    </div>
+                                                    <div class="chart-note mr-0 d-block">
+                                                        <span class="dot dot--yellow"></span>
+                                                        <span>medium threat</span>
+                                                    </div>
+                                                    <div class="chart-note mr-0 d-block">
+                                                        <span class="dot dot--green"></span>
+                                                        <span>low threat</span>
                                                     </div>
                                                     <div class="chart-note mr-0 d-block">
                                                         <span class="dot dot--blue"></span>
-                                                        <span>mid-level threat</span>
+                                                        <span>minor threat</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -318,8 +308,11 @@
     <script src="vendor/select2/select2.min.js">
     </script>
 
-    <!-- Main JS-->
+    <!-- Theme JS-->
     <script src="js/main.js"></script>
+
+    <!-- Charts JS-->
+    <script src="js/charts.js"></script>
 
 </body>
 

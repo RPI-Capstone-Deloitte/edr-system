@@ -13,6 +13,12 @@ app.use(bodyParser.json());
 // date as a global variable
 var original_date = "";
 
+// sets the default total cisa score
+var cisa_total = 0;
+
+// sets the total number of cisa levels
+var cisa_levels = 0;
+
 // sets the default server IP address
 // (set to production cloud server)
 var external_client_ip = "http://vm02.cluster.never.eu.org:5000";
@@ -67,7 +73,23 @@ app.get('/behavior/level', function(request, response)
 	}
 	var attack_id = String(request.query.attack_id);
 	response.header("X-Content-Type-Options", "nosniff");
-	return response.jsonp({"success": calculateThreatScore(attack_id)});
+	var threat_score = calculateThreatScore(attack_id);
+	cisa_total += threat_score; cisa_levels += 1;
+	return response.jsonp({"success": threat_score});
+});
+
+// calculates threat level based on attack id from client
+app.get('/behavior/level/average', function(request, response)
+{
+	var session_id = String(request.query.session_id);
+	var session_status = check_session(session_id);
+	if (session_status == false)
+	{
+		resp.header("X-Content-Type-Options", "nosniff");
+	  	return resp.jsonp({"error": "session inactive"});
+	}
+	response.header("X-Content-Type-Options", "nosniff");
+	return response.jsonp({"success": Math.ceil(cisa_total / cisa_levels)});
 });
 
 // creates a new user based on registration input
