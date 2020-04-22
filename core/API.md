@@ -25,9 +25,9 @@ application/json
 #### Body (RegistryBehavior)
 ```json
 {
-    success: true,
-    errMsg: null,
-    content: [
+    "success": true,
+    "errMsg": null,
+    "content": [
     {
       "attckids": "",
       "behaviortype": "RegistryBehavior",
@@ -80,9 +80,9 @@ application/json
 #### Body (ProcessBehavior)
 ```json
 {
-    success: true,
-    errMsg: null,
-    content: [
+    "success": true,
+    "errMsg": null,
+    "content": [
     {
       "attckids": "",
       "behaviortype": "ProcessBehavior",
@@ -141,9 +141,9 @@ application/json
 #### Body (ProcessBehavior)
 ```json
 {
-    success: true,
-    errMsg: null,
-    content: [
+    "success": true,
+    "errMsg": null,
+    "content": [
     {
       "attckids": "",
       "behaviortype": "NetworkBehavior",
@@ -206,9 +206,9 @@ application/json
 #### Body (FileBehavior)
 ```json
 {
-    success: true,
-    errMsg: null,
-    content: [
+    "success": true,
+    "errMsg": null,
+    "content": [
     {
       "attckids": "",
       "behaviortype": "FileBehavior",
